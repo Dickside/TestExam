@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ONIModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar(max)" />
+          <Property Name="Second_Name" Type="varchar(max)" />
+          <Property Name="Middle_Name" Type="varchar(max)" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Cost_Meet" Type="float" />
+          <Property Name="Percent_to_Salary" Type="float" />
+          <Property Name="Profession" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Meetings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctor_id" Type="int" />
+          <Property Name="patients_id" Type="int" />
+          <Property Name="Meeting_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar(max)" />
+          <Property Name="Second_Name" Type="varchar(max)" />
+          <Property Name="Middle_Name" Type="varchar(max)" />
+          <Property Name="Birth_day" Type="date" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Illness" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__Meetings__doctor__398D8EEE">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meetings__patien__3A81B327">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="patients_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ONIModelContainer">
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meetings" EntityType="Self.Meetings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Meetings__doctor__398D8EEE" Association="Self.FK__Meetings__doctor__398D8EEE">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meetings__patien__3A81B327" Association="Self.FK__Meetings__patien__3A81B327">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ONIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Second_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Cost_Meet" Type="Double" />
+          <Property Name="Percent_to_Salary" Type="Double" />
+          <Property Name="Profession" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Meetings" Relationship="Self.FK__Meetings__doctor__398D8EEE" FromRole="Doctors" ToRole="Meetings" />
+        </EntityType>
+        <EntityType Name="Meetings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctor_id" Type="Int32" />
+          <Property Name="patients_id" Type="Int32" />
+          <Property Name="Meeting_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK__Meetings__doctor__398D8EEE" FromRole="Meetings" ToRole="Doctors" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK__Meetings__patien__3A81B327" FromRole="Meetings" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Second_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Birth_day" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Illness" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Meetings" Relationship="Self.FK__Meetings__patien__3A81B327" FromRole="Patients" ToRole="Meetings" />
+        </EntityType>
+        <Association Name="FK__Meetings__doctor__398D8EEE">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meetings__patien__3A81B327">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="Meetings" Type="Self.Meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meetings">
+              <PropertyRef Name="patients_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ONIEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" />
+          <EntitySet Name="Meetings" EntityType="Self.Meetings" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" />
+          <AssociationSet Name="FK__Meetings__doctor__398D8EEE" Association="Self.FK__Meetings__doctor__398D8EEE">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meetings__patien__3A81B327" Association="Self.FK__Meetings__patien__3A81B327">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Meetings" EntitySet="Meetings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ONIModelContainer" CdmEntityContainer="ONIEntities2">
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="ONIModel.Doctors">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Second_Name" ColumnName="Second_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Cost_Meet" ColumnName="Cost_Meet" />
+                <ScalarProperty Name="Percent_to_Salary" ColumnName="Percent_to_Salary" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meetings">
+            <EntityTypeMapping TypeName="ONIModel.Meetings">
+              <MappingFragment StoreEntitySet="Meetings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+                <ScalarProperty Name="patients_id" ColumnName="patients_id" />
+                <ScalarProperty Name="Meeting_Date" ColumnName="Meeting_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="ONIModel.Patients">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Second_Name" ColumnName="Second_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Birth_day" ColumnName="Birth_day" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Illness" ColumnName="Illness" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
